@@ -132,9 +132,9 @@
                                 Voy a:
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" :href="'http://localhost:8686/account.html?id='+ dato.id">Ver Movimientos</a>
+                                <li><a class="dropdown-item" :href="'/account.html?id='+ dato.id">Ver Movimientos</a>
                                 </li>
-                                <li><a class="dropdown-item" href="http://localhost:8686/transfers.html">Transfers</a>
+                                <li><a class="dropdown-item" href="/transfers.html">Transfers</a>
                                 </li>
                             </ul>
                         </div>
@@ -143,7 +143,7 @@
 
                 <h2 class="text-info text-center">Prestamos</h2>
                 <div class="d-flex justify-content-center mb-4">
-                    <a class="btn btn-success" href="http://localhost:8686/loan-application.html">Apply for a loan</a>
+                    <a class="btn btn-success" href="/loan-application.html">Apply for a loan</a>
                 </div>
                 <section class="container">
                     <div v-if="prestamos.length > 0" v-for="prestamo in prestamos" class="card shadow-lg p-2 mb-5 rounded" style="max-width: 500px;">

@@ -28,7 +28,7 @@ const app = Vue.createApp({
         signOut() {
             axios.post('/api/logout')
                 .then(response => {
-                    location.href = "http://localhost:8686/index.html"
+                    location.href = "/index.html"
                 })
         },
         createCard() {
@@ -40,7 +40,7 @@ const app = Vue.createApp({
                         icon: "success",
                         button: "OK",
                     })
-                    location.href = "http://localhost:8686/card.html"
+                    location.href = "/card.html"
                 })
                 .catch(err => {
                     swal({

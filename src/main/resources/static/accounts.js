@@ -32,7 +32,7 @@ const app = Vue.createApp({
             axios.post('/api/logout')
                 .then(response => {
                     console.log("out")
-                    location.href = "http://localhost:8686/index.html"
+                    location.href = "/index.html"
                 })
         },
         createAccount() {

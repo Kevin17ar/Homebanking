@@ -27,7 +27,7 @@ const app = Vue.createApp({
         signOut() {
             axios.post('/api/logout')
                 .then(response => {
-                    location.href = "http://localhost:8686/index.html"
+                    location.href = "/index.html"
                 })
         },
         cardMax() {
