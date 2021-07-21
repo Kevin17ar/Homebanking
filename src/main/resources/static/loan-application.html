@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application</title>
+
+    <!-- bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/acounts.css">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="contenedor">
+        <div class="loader">
+            <div class="linea"></div>
+            <div class="linea"></div>
+            <div class="linea"></div>
+            <div class="linea"></div>
+            <div class="linea"></div>
+            <div class="linea"></div>
+            <div class="linea"></div>
+            <div class="linea"></div>
+        </div>
+    </div>
+    <div id="app">
+        <div id="wrapper">
+            <nav class="fixed-top shadow-lg">
+                <div>
+                    <img src="./img/LOGOBs2.png" height="45" alt="" loading="lazy" alt="Banco">
+                </div>
+                <input type="checkbox" id="click">
+                <label for="click" class="menu-btn">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <ul>
+                    <li><a href="accounts.html">Accounts</a></li>
+                    <li><a href="card.html">Cards</a></li>
+                    <li><a href="accounts.html">Loan</a></li>
+                    <li class="d-md-none">
+                        <button @click="signOut" type="button" class="btn btn-danger">SIGN OUT</button>
+                    </li>
+                    <li class="d-none d-md-flex">
+                        <div class="dropdown nav-item">
+                            <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                {{cliente.firstName}} {{cliente.lastName}}
+                            </button>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                                <div class="offcanvas-header">
+                                    <h5 id="offcanvasRightLabel">My homebanking</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <button @click="signOut" type="button" class="btn btn-danger">SIGN OUT</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- <div class="d-none d-sm-none d-md-block">Este texto solo visible para escritorio</div>
+            <div class="d-block d-sm-block d-md-none">Este texto solo visible para smartphone</div> -->
+            <main class="pt-5 mt-5">
+                <h2 class="text-info text-center">Application Loan</h2>
+                <div class="d-flex justify-content-center">
+                    <form>
+                        <fieldset>
+                            <div class="mb-3">
+                                <label for="Select1" class="form-label">Type loan // Maximum amount you can
+                                    request:</label>
+                                <select v-model="typeLoan" id="Select1" class="form-select" required>
+                                    <option v-for="prestamo in prestamos" :value="prestamo.id">{{prestamo.name}} // $
+                                        {{prestamo.maxAmount}}</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Select2" class="form-label">Number payments:</label>
+                                <select v-model="payment" id="Select2" class="form-select" required>
+                                    <option v-for="pay in payments[0]" :value="pay">{{pay}}</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Select3" class="form-label">Account Destiny:</label>
+                                <select v-model="number" id="Select3" class="form-select" required>
+                                    <option v-for="cuenta in cuentas" :value="cuenta.number">{{cuenta.number}}</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="amount" class="form-label me-3">Amount $</label>
+                                <input v-model="amount" type="number" min="0" name="amount" id="amount" placeholder="ejample : 1000.25" required>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>amount to request</td>
+                                        <td>{{amount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>loan interest {{interest[0]}}%</td>
+                                        <td>{{(amount* interest[0]/100).toFixed(2)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-dark">Total to pay</td>
+                                        <td class="table-dark">{{(amount * (interest[0]/100 + 1)).toFixed(0)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-dark">Fee to pay</td>
+                                        <td class="table-dark">{{(((amount * (interest[0]/100 + 1)).toFixed(0)) /payment).toFixed(0) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button @click="createLoan" type="button" class="btn btn-success mb-3">Apply for
+                                Loan</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </main>
+
+            <footer class="text-center text-lg-start text-light" style="background-color: rgb(7,33,70);">
+                <!-- Section: Social media -->
+                <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+                    <!-- Left -->
+                    <div class="me-5 d-none d-lg-block">
+                        <span>Encuentrenos en nuestras redes:</span>
+                    </div>
+                    <!-- Left -->
+                    <!-- Right -->
+                    <div>
+                        <a href="" class="me-4 text-reset">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="" class="me-4 text-reset">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="" class="me-4 text-reset">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <!-- Right -->
+                </section>
+                <!-- Section: Social media -->
+                <!-- Section: Links  -->
+                <section class="">
+                    <div class="container text-center text-md-start mt-5">
+                        <div class="row mt-3">
+                            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                                <img class="img-fluid" src="img/LOGOBs2.png" alt="logo">
+                            </div>
+                            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                                <h6 class="text-uppercase fw-bold mb-4">
+                                    Productos
+                                </h6>
+                                <p>
+                                    <a href="#!" class="text-reset">Cuentas</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">Tarjetas</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">Prestamos</a>
+                                </p>
+                            </div>
+                            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                                <h6 class="text-uppercase fw-bold mb-4">
+                                    Contacto
+                                </h6>
+                                <p>
+                                    <i class="fas fa-envelope me-3"></i> info@ejemplo.com
+                                </p>
+                                <p><i class="fas fa-phone me-3"></i>0800-555-444</p>
+                                <p><i class="fas fa-print me-3"></i>0800-555-444</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Section: Links  -->
+                <!-- Copyright -->
+                <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                    © 2021 Copyright:
+                    <a class="text-reset fw-bold" href="#">Banco Securiry S.A</a>
+                </div>
+                <!-- Copyright -->
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="loan-application.js"></script>
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

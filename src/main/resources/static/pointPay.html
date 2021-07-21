@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay</title>
+    <link rel="stylesheet" href="css/pointPay.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="wrapper">
+            <div class="container">
+                <form action="">
+                    <h1>
+                        <i class="fas fa-shipping-fast"></i> Shipping Details
+                    </h1>
+                    <div class="name">
+                        <div>
+                            <label for="f-name">First</label>
+                            <input type="text" name="f-name">
+                        </div>
+                        <div>
+                            <label for="l-name">Last</label>
+                            <input type="text" name="l-name">
+                        </div>
+                    </div>
+                    <div class="street">
+                        <label for="name">Street</label>
+                        <input type="text" name="address">
+                    </div>
+                    <div class="address-info">
+                        <div>
+                            <label for="city">Description</label>
+                            <input v-model="description" type="text" name="city">
+                        </div>
+
+                        <div>
+                            <label for="zip">Amount</label>
+                            <input v-model="amount" type="text" name="zip">
+                        </div>
+                    </div>
+                    <h1>Payments</h1>
+                    <div class="cc-num">
+                        <label for="card-num">Credit Card No.</label>
+                        <input v-model="number" type="text" name="card-num" placeholder="000-0000-0000-0000" required>
+                    </div>
+                    <div class="cc-info">
+                        <div>
+                            <label for="card-num">Exp</label>
+                            <input type="text" name="expire" placeholder="MM/YY" required>
+                        </div>
+                        <div>
+                            <label for="card-num">CCV</label>
+                            <input v-model="cvv" type="text" name="security">
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <button @click="buy" type="button">Buy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>}
+    <script src="payPoint.js"></script>
+</body>
+
+</html>
