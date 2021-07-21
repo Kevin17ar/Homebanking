@@ -71,7 +71,7 @@ public class LoanController {
             return new ResponseEntity<>("payment not available", HttpStatus.FORBIDDEN);
         }
         else{
-            Double interest = (loanRepository.getById(loanApplicationDTO.getId()).getInterest() / 100 ) +1;
+            Double interest = (loanRepository.findById(loanApplicationDTO.getId()).get().getInterest() / 100 ) +1;
 
             double balance = accountRepository.findByNumber(loanApplicationDTO.getNumber()).getBalance() + loanApplicationDTO.getAmount() * interest;
             accountRepository.findByNumber(loanApplicationDTO.getNumber()).setBalance(balance);

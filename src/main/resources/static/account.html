@@ -91,7 +91,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="transaccion in transacciones">
-                            <th scope="row">{{transaccion.transactionDate.split("-").reverse.().join("-")}}</th>
+                            <th scope="row">{{transaccion.transactionDate.split("-").reverse().join("-")}}</th>
                             <td>{{transaccion.description}}</td>
                             <td v-if="transaccion.type === 'CREDIT'" class="text-success">{{transaccion.amount}}</td>
                             <td v-else class="text-danger">{{transaccion.amount}}</td>

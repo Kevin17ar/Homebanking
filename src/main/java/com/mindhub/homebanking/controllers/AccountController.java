@@ -66,11 +66,11 @@ public class AccountController {
         if (id == 0){
             return new ResponseEntity<>("empty", HttpStatus.FORBIDDEN);
         }
-        if (!client.getAccounts().contains(accountRepository.getById(id))){
+        if (!client.getAccounts().contains(accountRepository.getOne(id))){
             return new ResponseEntity<>("card not client", HttpStatus.FORBIDDEN);
         }
         else {
-            Account account = accountRepository.getById(id);
+            Account account = accountRepository.getOne(id);
             account.setActive(false);
             accountRepository.save(account);
             /* para eliminar cuentas y transactiones, se tiene que elimicar primero las relaciones o usar cascade
