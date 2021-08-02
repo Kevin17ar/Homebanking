@@ -31,7 +31,7 @@ public class HomebankingApplication {
 		return (args) -> {
 			// save a couple of customers
 
-			/*LocalDateTime today= LocalDateTime.now();
+			LocalDateTime today= LocalDateTime.now();
 			LocalDateTime yesterday= today.minusMonths(1);
 
 			DateTimeFormatter todayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -115,7 +115,7 @@ public class HomebankingApplication {
 
 			cardRepository.save(card1);
 			cardRepository.save(card2);
-			cardRepository.save(card3);*/
+			cardRepository.save(card3);
 
 
 		};
