@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tus Cuentas</title>
+    <title>Cards</title>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
 
@@ -67,7 +67,8 @@
             <main class="d-flex flex-column align-items-center pt-5 mt-5">
                 <div class="d-flex justify-content-center">
                     <a v-if="tarjetas.length < 6" type="button" class="btn btn-success mb-4 me-3" href="create-cards.html">Request Card</a>
-                    <a v-else @click="cardMax" type="button" class="btn btn-danger mb-4 me-3" href="#" disabled>Request Card</a>
+                    <a v-else @click="cardMax" type="button" class="btn btn-danger mb-4 me-3" href="#" disabled>Request
+                        Card</a>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-danger mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete Card</button>
                 </div>
@@ -93,60 +94,66 @@
                         </div>
                     </div>
                 </div>
-                <h3 class="text-info text-center">Tus Tarjetas de Debito</h3>
-                <div v-if="cardDebit.length > 0" v-for=" card in cardDebit" class="cardT mb-5">
-                    <div :class="card.color" class="card__front card__part shadow-lg">
-                        <img class="card__front-square card__square " src=" ">
-                        <img class="card__front-logo card__logo " src=" ">
-                        <p class="card_numer ">{{card.number}}</p>
-                        <div class="card__space-75 ">
-                            <span class="card__label ">Card holder</span>
-                            <p class="card__info ">{{card.cardholder}}</p>
-                        </div>
-                        <div class="card__space-25 ">
-                            <span class="card__label ">Expires</span>
-                            <p class="card__info ">{{card.fromDate}}</p>
-                        </div>
-                    </div>
-                    <div :class="card.color" class="card__back card__part shadow-lg">
-                        <div class="card__black-line "></div>
-                        <div class="card__back-content ">
-                            <div class="card__secret ">
-                                <p class="card__secret--last ">{{card.cvv}}</p>
+                <div class="container d-md-flex justify-content-md-around  w-100">
+                    <section class="d-flex flex-column align-items-center">
+                        <h3 class="text-center bg-light">You Debit Cards</h3>
+                        <div v-if="cardDebit.length > 0" v-for=" card in cardDebit" class="cardT mb-5">
+                            <div :class="card.color" class="card__front card__part shadow-lg">
+                                <img class="card__front-square card__square " src=" ">
+                                <img class="card__front-logo card__logo " src=" ">
+                                <p class="card_numer ">{{card.number}}</p>
+                                <div class="card__space-75 ">
+                                    <span class="card__label ">Card holder</span>
+                                    <p class="card__info ">{{card.cardholder}}</p>
+                                </div>
+                                <div class="card__space-25 ">
+                                    <span class="card__label ">Expires</span>
+                                    <p class="card__info ">{{card.fromDate}}</p>
+                                </div>
                             </div>
-                            <img class="card__back-square card__square " src=" ">
-                            <img class="card__back-logo card__logo " src=" ">
-                        </div>
-                    </div>
-                </div>
-                <div v-else>No posee tajetas de Debito</div>
-                <h3 class="text-info text-center">Tus Tarjetas de Credito</h3>
-                <div v-if="cardCredit.length> 0" v-for="card in cardCredit" class="cardT mb-5">
-                    <div :class="card.color" class="card__front card__part shadow-lg">
-                        <img class="card__front-square card__square" src="">
-                        <img class="card__front-logo card__logo" src="">
-                        <p class="card_numer">{{card.number}}</p>
-                        <div class="card__space-75">
-                            <span class="card__label">Card holder</span>
-                            <p class="card__info">{{card.cardholder}}</p>
-                        </div>
-                        <div class="card__space-25">
-                            <span class="card__label">Expires</span>
-                            <p class="card__info">{{card.fromDate}}</p>
-                        </div>
-                    </div>
-                    <div :class="card.color" class="card__back card__part shadow-lg">
-                        <div class="card__black-line"></div>
-                        <div class="card__back-content">
-                            <div class="card__secret">
-                                <p class="card__secret--last">{{card.cvv}}</p>
+                            <div :class="card.color" class="card__back card__part shadow-lg">
+                                <div class="card__black-line "></div>
+                                <div class="card__back-content ">
+                                    <div class="card__secret ">
+                                        <p class="card__secret--last ">{{card.cvv}}</p>
+                                    </div>
+                                    <img class="card__back-square card__square " src=" ">
+                                    <img class="card__back-logo card__logo " src=" ">
+                                </div>
                             </div>
-                            <img class="card__back-square card__square" src="">
-                            <img class="card__back-logo card__logo" src="">
                         </div>
-                    </div>
+                        <div v-else>No posee tajetas de Debito</div>
+                    </section>
+                    <section class="d-flex flex-column align-items-center">
+                        <h3 class="text-center bg-light">Your Credit Cards</h3>
+                        <div v-if="cardCredit.length> 0" v-for="card in cardCredit" class="cardT mb-5">
+                            <div :class="card.color" class="card__front card__part shadow-lg">
+                                <img class="card__front-square card__square" src="">
+                                <img class="card__front-logo card__logo" src="">
+                                <p class="card_numer">{{card.number}}</p>
+                                <div class="card__space-75">
+                                    <span class="card__label">Card holder</span>
+                                    <p class="card__info">{{card.cardholder}}</p>
+                                </div>
+                                <div class="card__space-25">
+                                    <span class="card__label">Expires</span>
+                                    <p class="card__info">{{card.fromDate}}</p>
+                                </div>
+                            </div>
+                            <div :class="card.color" class="card__back card__part shadow-lg">
+                                <div class="card__black-line"></div>
+                                <div class="card__back-content">
+                                    <div class="card__secret">
+                                        <p class="card__secret--last">{{card.cvv}}</p>
+                                    </div>
+                                    <img class="card__back-square card__square" src="">
+                                    <img class="card__back-logo card__logo" src="">
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else class="mb-4">No posee tarjeta de credito</div>
+                    </section>
                 </div>
-                <div v-else class="mb-4">No posee tarjeta de credito</div>
             </main>
             <!-- <div class="d-none d-sm-none d-md-block">Este texto solo visible para escritorio</div>
             <div class="d-block d-sm-block d-md-none">Este texto solo visible para smartphone</div> -->

@@ -10,5 +10,8 @@ import java.util.List;
 @RepositoryRestResource
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    public List findByTransactionDateBetween(LocalDate star, LocalDate end);
+    public List<Transaction> findByTransactionDateBetween(LocalDate star, LocalDate end);
+
+    public List<Transaction> findByDescriptionContaining(String filter);
+
 }

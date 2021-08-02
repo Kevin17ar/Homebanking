@@ -14,6 +14,7 @@ const app = Vue.createApp({
             star: null,
             end: null,
             table: false,
+            word: "",
         }
     },
     created() {
@@ -45,13 +46,28 @@ const app = Vue.createApp({
             const urlParams = new URLSearchParams(window.location.search);
             const myParam = urlParams.get('id');
             console.log(myParam);
-
             // let star = this.star.split("-").reverse().join("-");
             // let end = this.end.split("-").reverse().join("-");
             console.log(star)
             console.log(end)
 
             axios.post('/api/clients/filter', "id=" + myParam + "&star=" + this.star + "&end=" + this.end)
+                .then(res => {
+                    this.listFilter = res.data.sort((a, b) => b.id - a.id)
+                    this.table = true
+                    console.log(this.listFilter)
+                })
+                .catch(err => console.log(err))
+        },
+        resert() {
+            location.reload();
+        },
+        filterWord() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const myParam = urlParams.get('id');
+            console.log(myParam);
+
+            axios.post('/api/clients/filter/description', "id=" + myParam + "&word=" + this.word)
                 .then(res => {
                     this.listFilter = res.data.sort((a, b) => b.id - a.id)
                     this.table = true

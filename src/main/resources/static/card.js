@@ -35,6 +35,7 @@ const app = Vue.createApp({
                 title: "Alert",
                 text: "You have the max cards, contact customer service",
                 icon: "warning",
+                button: "OK"
             });
         },
         deleteCard() {
@@ -47,16 +48,17 @@ const app = Vue.createApp({
                 .then((willDelete) => {
                     if (willDelete) {
                         axios.post('/api/clients/current/card', "id=" + this.cardSelect)
-                            .then(response => {
+                            .then(res => {
                                 swal({
-                                    title: "Congratulations",
-                                    text: "card delete",
-                                    icon: "success",
-                                    button: "OK",
-                                });
-                                // location.reload();
+                                        title: "Congratulations",
+                                        text: "Card create",
+                                        icon: "success",
+                                        button: "OK"
+                                    })
+                                    .then(res => {
+                                        location.reload();
+                                    })
                             })
-                            .then(res => location.reload())
                             .catch(err => {
                                 swal({
                                     title: "Alert",

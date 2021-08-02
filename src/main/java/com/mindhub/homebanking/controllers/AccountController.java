@@ -63,14 +63,18 @@ public class AccountController {
     @PostMapping("/clients/current/account/delete")
     public ResponseEntity<Object> deleteAccount(@RequestParam Long id, Authentication authentication){
         Client client = clientRepository.findByEmail(authentication.getName());
-        if (id == 0){
+        Account account = accountRepository.findById(id).orElse(null);
+
+        if (account == null){
             return new ResponseEntity<>("empty", HttpStatus.FORBIDDEN);
+        }
+        if (account.getBalance() > 0 ){
+            return new ResponseEntity<>("balance not 0", HttpStatus.FORBIDDEN);
         }
         if (!client.getAccounts().contains(accountRepository.getOne(id))){
             return new ResponseEntity<>("card not client", HttpStatus.FORBIDDEN);
         }
         else {
-            Account account = accountRepository.getOne(id);
             account.setActive(false);
             accountRepository.save(account);
             /* para eliminar cuentas y transactiones, se tiene que elimicar primero las relaciones o usar cascade

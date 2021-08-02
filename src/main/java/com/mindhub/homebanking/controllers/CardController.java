@@ -59,7 +59,7 @@ public class CardController {
         if (id == 0){
             return new ResponseEntity<>("Empty", HttpStatus.FORBIDDEN);
         }
-        if (!client.getCards().contains(cardRepository.findById(id))){
+        if (!client.getCards().contains(cardRepository.findById(id).orElse(null))){
             return new ResponseEntity<>("card not client", HttpStatus.FORBIDDEN);
         } else {
             cardRepository.deleteById(id);

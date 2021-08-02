@@ -58,11 +58,12 @@ const app = Vue.createApp({
                             })
                             .then(response => {
                                 swal({
-                                    title: "Congratulations",
-                                    text: "amount transferred to selected account",
-                                    icon: "success",
-                                    button: "OK",
-                                });
+                                        title: "Congratulations",
+                                        text: "amount transferred to selected account",
+                                        icon: "success",
+                                        button: "OK",
+                                    })
+                                    .then(res => { location.reload() })
                             })
                             .catch(err => {
                                 swal({

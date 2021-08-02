@@ -23,6 +23,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native",strategy = "native")
     private long id;
+
     private String accountType;
     private String number;
     private LocalDateTime creationDate;

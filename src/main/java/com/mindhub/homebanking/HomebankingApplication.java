@@ -31,7 +31,7 @@ public class HomebankingApplication {
 		return (args) -> {
 			// save a couple of customers
 
-			LocalDateTime today= LocalDateTime.now();
+			/*LocalDateTime today= LocalDateTime.now();
 			LocalDateTime yesterday= today.minusMonths(1);
 
 			DateTimeFormatter todayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -40,9 +40,6 @@ public class HomebankingApplication {
 			String formattedDate = today.format(todayFormat);
 
 			LocalDateTime tomorrow= today.plusDays(1);
-
-
-
 
 			Client client1= new Client("Melba", "Morel","melba@mindhub.com", passwordEncoder.encode("1234"));
 			Client client2= new Client("Carlos", "Valle","holamundo@mindhub.com", passwordEncoder.encode("12345"));
@@ -118,7 +115,7 @@ public class HomebankingApplication {
 
 			cardRepository.save(card1);
 			cardRepository.save(card2);
-			cardRepository.save(card3);
+			cardRepository.save(card3);*/
 
 
 		};

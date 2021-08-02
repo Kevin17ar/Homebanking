@@ -43,7 +43,7 @@ public class TransactionController {
 
         Client client = clientRepository.findByEmail(authentication.getName());
 
-        if (description.isEmpty() || numberOrigin.isEmpty() || numberDestiny.isEmpty() || amount == 0){
+        if (description.isEmpty() || numberOrigin.isEmpty() || numberDestiny.isEmpty() || amount < 0){
             return new ResponseEntity<>("empty",HttpStatus.FORBIDDEN);
         }
         if (numberDestiny == numberOrigin){
@@ -79,13 +79,16 @@ public class TransactionController {
     @PostMapping("/clients/pay")
     public ResponseEntity<Object> payCard(@RequestBody PayCardDTO payCardDTO){
         Card card = cardRepository.findByNumber(payCardDTO.getNumber());
-        Account account = card.getClient().getAccounts().stream().findFirst().get();
+        Account account = card.getClient().getAccounts().stream().findFirst().orElse(null);
 
         if (payCardDTO.getNumber().isEmpty() || payCardDTO.getCvv() == 0 || payCardDTO.getAmount() == 0 || payCardDTO.getDescription().isEmpty()){
             return new ResponseEntity<>("empty", HttpStatus.BAD_REQUEST);
         }
-        if (card == null){
+        if (account == null){
             return new ResponseEntity<>("card no exist", HttpStatus.FORBIDDEN);
+        }
+        if(!account.getAccountType().equals("Caja de Ahorro")){
+            return new ResponseEntity<>("is no account type ahorro", HttpStatus.FORBIDDEN);
         }
         if (payCardDTO.getCvv() != card.getCvv()){
             return new ResponseEntity<>("cvv invalido", HttpStatus.FORBIDDEN);
@@ -107,16 +110,29 @@ public class TransactionController {
 
     @PostMapping("/clients/filter")
     public  ResponseEntity<?> getTransactionFilter(@RequestParam Long id, @RequestParam String star, @RequestParam String end){
-        Account account = accountRepository.findById(id).get();
+        Account account = accountRepository.findById(id).orElse(null);
 
         List<Transaction> transactionList = transactionRepository.findByTransactionDateBetween(LocalDate.parse(star), LocalDate.parse(end));
 
-        List<TransactionDTO> transactionDTOS = transactionList.stream().map(transaction -> new TransactionDTO(transaction)).collect(Collectors.toList());
+        List<TransactionDTO> transactionDTOS = transactionList.stream().map(TransactionDTO::new).collect(Collectors.toList());
 
-        List<TransactionDTO>  transactionDTOS2 = account.getTransactions().stream().map(transaction -> new TransactionDTO(transaction)).collect(Collectors.toList());
+        List<TransactionDTO>  transactionDTOS2 = account.getTransactions().stream().map(TransactionDTO::new).collect(Collectors.toList());
 
         List<TransactionDTO>  transactionDTOS1 = transactionDTOS.stream().filter(tr -> transactionDTOS2.contains(tr)).collect(Collectors.toList());
 
         return new ResponseEntity<>(transactionDTOS1, HttpStatus.OK);
+    }
+
+    @PostMapping("/clients/filter/description")
+    public ResponseEntity<?> getTransactionByString(@RequestParam Long id ,@RequestParam String word){
+        Account account = accountRepository.findById(id).orElse(null);
+
+        List<TransactionDTO> transactions = transactionRepository.findByDescriptionContaining(word).stream().map(TransactionDTO::new).collect(Collectors.toList());
+
+        List<TransactionDTO> transactionDTOList = account.getTransactions().stream().map(TransactionDTO::new).collect(Collectors.toList());
+
+        List<TransactionDTO> transactionDTOList1 = transactionDTOList.stream().filter(tr -> transactions.contains(tr)).collect(Collectors.toList());
+
+        return new ResponseEntity<>(transactionDTOList1, HttpStatus.OK);
     }
 }

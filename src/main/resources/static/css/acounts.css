@@ -2,6 +2,23 @@
     margin: 0;
     box-sizing: border-box;
     height: 100vh;
+    font-size: large;
+}
+
+.accordion-collapse {
+    transition: 0.4s !important;
+}
+
+.tab-pane {
+    transition: 0.4s !important;
+}
+
+.offcanvas {
+    transition: 0.4s !important;
+}
+
+.modal {
+    transition: 0.4s !important;
 }
 
 .contenedor {
@@ -96,6 +113,10 @@ footer img {
 footer {
     background-color: rgb(7, 33, 70);
     min-height: 20vh;
+}
+
+h3 {
+    color: rgb(33, 99, 190);
 }
 
 
@@ -404,4 +425,11 @@ nav input[type="checkbox"] {
 .content div {
     font-size: 40px;
     font-weight: 700;
+}
+
+@media (min-width: 768px) {
+    .filterSection {
+        width: 30vw;
+        padding-left: 10px;
+    }
 }

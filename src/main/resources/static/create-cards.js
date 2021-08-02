@@ -35,18 +35,19 @@ const app = Vue.createApp({
             axios.post("/api/clients/current/cards", "type=" + this.typeCard + "&color=" + this.typeColor, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                 .then(res => {
                     swal({
-                        title: "Congratulations",
-                        text: "You have a new card",
-                        icon: "success",
-                        button: "OK",
-                    })
-                    location.href = "/card.html"
+                            title: "Congratulations",
+                            text: "You have a new card",
+                            icon: "success",
+                            button: "OK",
+                        })
+                        .then(res => location.href = "/card.html")
                 })
                 .catch(err => {
                     swal({
                         title: "Alert",
                         text: "You have the max cards, contact customer service",
                         icon: "warning",
+                        button: "OK",
                     });
                 })
         }

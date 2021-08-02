@@ -41,17 +41,19 @@ const app = Vue.createApp({
                 axios.post('/api/clients/current/transactions', "amount=" + this.amount + "&description=" + this.description + "&numberOrigin=" + this.accountOrigin + "&numberDestiny=" + this.accountDestiny, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                     .then(response => {
                         swal({
-                            title: "Congratulations",
-                            text: "Successful transfer",
-                            icon: "success",
-                            button: "OK",
-                        });
+                                title: "Congratulations",
+                                text: "Successful transfer",
+                                icon: "success",
+                                button: "OK",
+                            })
+                            .then(res => { location.href = "/accounts.html" })
                     })
                     .catch(err => {
                         swal({
                             title: "Alert",
                             text: "Check the data entered",
                             icon: "warning",
+                            button: "OK",
                         })
                     })
             } else {
@@ -68,11 +70,12 @@ const app = Vue.createApp({
                 axios.post('/api/clients/current/transactions', "amount=" + this.amount + "&description=" + this.description + "&numberOrigin=" + this.accountOrigin + "&numberDestiny=" + this.accountDestinyOther, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                     .then(response => {
                         swal({
-                            title: "Congratulations",
-                            text: "Successful transfer",
-                            icon: "success",
-                            button: "OK",
-                        });
+                                title: "Congratulations",
+                                text: "Successful transfer",
+                                icon: "success",
+                                button: "OK",
+                            })
+                            .then(res => location.href = "/accounts.html")
                     })
                     .catch(err => {
                         swal({
@@ -101,3 +104,21 @@ const app = Vue.createApp({
     },
 })
 app.mount("#app")
+
+function onlyNumber(e) {
+    key = e.keyCode || e.which;
+    teclado = String.fromCharCode(key);
+    numbers = "0123456789";
+    especiales = "8-37-38-46";
+    teclado_especial = false;
+
+    for (let i in especiales) {
+        if (key == especiales[i]) {
+            teclado_especial = true;
+        }
+    }
+    if (numbers.indexOf(teclado) == -1 & !teclado_especial) {
+        return false;
+    }
+
+}

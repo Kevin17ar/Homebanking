@@ -36,22 +36,36 @@ const app = Vue.createApp({
                 })
         },
         createAccount() {
-            axios.post("/api/clients/current/accounts", "accountType=" + this.typeSelect)
-                .then(res => {
-                    swal({
-                        title: "Congratulations",
-                        text: "You can sign in whith your email and password",
-                        icon: "success",
-                        button: "OK",
-                    })
+            swal({
+                    title: "Are you sure?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
                 })
-                .catch(err => {
-                    swal({
-                        title: "Alert",
-                        text: "You have 3 accounts, to request more contact customer service",
-                        icon: "warning",
-                    });
-                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        axios.post("/api/clients/current/accounts", "accountType=" + this.typeSelect)
+                            .then(res => {
+                                swal({
+                                        title: "Congratulations",
+                                        text: "Account create",
+                                        icon: "success",
+                                        button: "OK"
+                                    })
+                                    .then(res => { location.reload() })
+                            })
+                            .catch(err => {
+                                swal({
+                                    title: "Alert",
+                                    text: "You have 3 accounts, to request more contact customer service",
+                                    icon: "warning",
+                                    button: "OK"
+                                });
+                            })
+                    } else {
+                        swal("for question contac us");
+                    }
+                });
         },
         deleteAccount() {
             swal({
@@ -65,18 +79,19 @@ const app = Vue.createApp({
                         axios.post('/api/clients/current/account/delete', "id=" + this.accountSelect)
                             .then(response => {
                                 swal({
-                                    title: "Congratulations",
-                                    text: "Account delete",
-                                    icon: "success",
-                                    button: "OK",
-                                });
-                                location.reload();
+                                        title: "Congratulations",
+                                        text: "Account delete",
+                                        icon: "success",
+                                        button: "OK"
+                                    })
+                                    .then(res => location.reload())
                             })
                             .catch(err => {
                                 swal({
                                     title: "Alert",
-                                    text: "Check the data entered",
+                                    text: "Has a balance in the account",
                                     icon: "warning",
+                                    button: "OK"
                                 })
                             })
                     } else {

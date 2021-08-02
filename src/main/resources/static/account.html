@@ -70,55 +70,92 @@
             </nav>
             <!-- <div class="d-none d-sm-none d-md-block">Este texto solo visible para escritorio</div>
             <div class="d-block d-sm-block d-md-none">Este texto solo visible para smartphone</div> -->
-            <main class="d-flex flex-column align-items-center mt-5 pt-5">
-                <h3>My Transactions: {{cuenta.number}}</h3>
-                <div class="mb-4">
-                    <label for="star">From: </label>
-                    <input v-model="star" type="date" name="star" id="star" class="me-4">
-                    <label for="end">To: </label>
-                    <input v-model="end" type="date" name="end" id="end" class="me-4">
-                    <button @click="filterDate" type="button" class="btn btn-primary">Filter</button>
-                    <button @click="resert" type="button" class="btn btn-primary ms-4">Resert</button>
+            <main class="mt-5 pt-5">
+                <h3 class="text-center">My Transactions: {{cuenta.number}}</h3>
+                <div class="d-flex flex-column flex-md-row">
+                    <section class="filterSection">
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        Date
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body d-flex flex-column">
+                                        <label for="star">From: </label>
+                                        <input v-model="star" type="date" name="star" id="star" class="me-4">
+                                        <label for="end">To: </label>
+                                        <input v-model="end" type="date" name="end" id="end" class="me-4">
+                                        <div class="mt-3">
+                                            <button @click="filterDate" type="button" class="btn btn-primary">Filter</button>
+                                            <button @click="resert" type="button" class="btn btn-primary ms-4">Resert</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                        Word
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <!-- <label for="word">Word:</label> -->
+                                        <input v-model="word" type="text" name="word" id="word">
+                                        <div class="mt-3">
+                                            <button @click="filterWord" type="button" class="btn btn-primary">Filter</button>
+                                            <button @click="resert" type="button" class="btn btn-primary ms-4">Resert</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="d-flex justify-content-center w-100">
+                        <table v-show="!table" class="table table-hover w-75">
+                            <thead class="table-info">
+                                <tr>
+                                    <th class="fw-bold" scope="col">Date</th>
+                                    <th class="fw-bold" scope="col">Descripcion</th>
+                                    <th class="fw-bold" scope="col">Amount</th>
+                                    <th class="fw-bold" scope="col">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="transaccion in transacciones">
+                                    <th scope="row">{{transaccion.transactionDate.split("-").reverse().join("-")}}</th>
+                                    <td>{{transaccion.description}}</td>
+                                    <td v-if="transaccion.type === 'CREDIT'" class="text-success">{{transaccion.amount}}
+                                    </td>
+                                    <td v-else class="text-danger">{{transaccion.amount}}</td>
+                                    <td>{{transaccion.balance}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table v-show="table" class="table table-hover w-75">
+                            <thead class="table-info">
+                                <tr>
+                                    <th class="fw-bold" scope="col">Date</th>
+                                    <th class="fw-bold" scope="col">Descripcion</th>
+                                    <th class="fw-bold" scope="col">Amount</th>
+                                    <th class="fw-bold" scope="col">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="transaccion in listFilter">
+                                    <th scope="row">{{transaccion.transactionDate}}</th>
+                                    <td>{{transaccion.description}}</td>
+                                    <td v-if="transaccion.type === 'CREDIT'" class="text-success">{{transaccion.amount}}
+                                    </td>
+                                    <td v-else class="text-danger">{{transaccion.amount}}</td>
+                                    <td>{{transaccion.balance}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
                 </div>
-                <table v-show="!table" class="table table-hover w-75">
-                    <thead class="table-info">
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="transaccion in transacciones">
-                            <th scope="row">{{transaccion.transactionDate.split("-").reverse().join("-")}}</th>
-                            <td>{{transaccion.description}}</td>
-                            <td v-if="transaccion.type === 'CREDIT'" class="text-success">{{transaccion.amount}}</td>
-                            <td v-else class="text-danger">{{transaccion.amount}}</td>
-                            <td>{{transaccion.balance}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table v-show="table" class="table table-hover w-75">
-                    <thead class="table-info">
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="transaccion in listFilter">
-                            <th scope="row">{{transaccion.transactionDate}}</th>
-                            <td>{{transaccion.description}}</td>
-                            <td v-if="transaccion.type === 'CREDIT'" class="text-success">{{transaccion.amount}}</td>
-                            <td v-else class="text-danger">{{transaccion.amount}}</td>
-                            <td>{{transaccion.balance}}</td>
-                        </tr>
-                    </tbody>
-                </table>
             </main>
 
             <footer class="text-center text-lg-start text-light" style="background-color: rgb(7,33,70);">
