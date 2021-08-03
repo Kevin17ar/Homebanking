@@ -37,11 +37,14 @@ const app = Vue.createApp({
                 axios.post('/api/clients', "firstName=" + this.firstNameToReg + "&lastName=" + this.lastNameToReg + "&email=" + this.emailToReg + "&password=" + this.passwordToReg, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                     .then(response => {
                         swal({
-                            title: "Congratulations",
-                            text: "You can sign in whith your email and password",
-                            icon: "success",
-                            button: "OK",
-                        });
+                                title: "Congratulations",
+                                text: "You can sign in whith your email and password",
+                                icon: "success",
+                                button: "OK",
+                            })
+                            .then(res => {
+                                location.href = "/accounts.html?"
+                            })
                     })
             } else {
                 swal({
