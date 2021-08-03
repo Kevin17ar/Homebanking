@@ -108,3 +108,21 @@ const app = Vue.createApp({
     },
 })
 app.mount("#app")
+
+function onlyNumber(e) {
+    key = e.keyCode || e.which;
+    teclado = String.fromCharCode(key);
+    numbers = "0123456789";
+    especiales = "8-37-38-46";
+    teclado_especial = false;
+
+    for (let i in especiales) {
+        if (key == especiales[i]) {
+            teclado_especial = true;
+        }
+    }
+    if (numbers.indexOf(teclado) == -1 & !teclado_especial) {
+        return false;
+    }
+
+}
