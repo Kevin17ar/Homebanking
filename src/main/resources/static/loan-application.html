@@ -73,17 +73,17 @@
             <div class="d-block d-sm-block d-md-none">Este texto solo visible para smartphone</div> -->
             <main class="pt-5 mt-5">
                 <h2 class="text-info text-center">Application Loan</h2>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center p-4">
                     <form>
                         <fieldset>
                             <div class="mb-3">
                                 <label for="Select1" class="form-label">Type loan // Maximum amount you can
                                     request:</label>
                                 <select v-model="typeLoan" id="Select1" class="form-select" required>
-                                    <option v-for="prestamo in prestamos" :value="prestamo.id">{{prestamo.name}} // $
-                                        {{prestamo.maxAmount}}</option>
+                                    <option v-for="prestamo in prestamos" :value="prestamo">{{prestamo.name}}</option>
                                 </select>
                             </div>
+                            <p class="text-warning bg-dark text-center">Max Amount: ${{showMaxAmount}}</p>
                             <div class="mb-3">
                                 <label for="Select2" class="form-label">Number payments:</label>
                                 <select v-model="payment" id="Select2" class="form-select" required>
@@ -110,6 +110,7 @@
                                 <tbody>
                                     <tr>
                                         <td>amount to request</td>
+                                        <!-- <td v-if="amount > "></td> -->
                                         <td>{{amount}}</td>
                                     </tr>
                                     <tr>
@@ -126,8 +127,10 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <button @click="createLoan" type="button" class="btn btn-success mb-3">Apply for
-                                Loan</button>
+                            <div class="d-flex justify-content-center">
+                                <button @click="createLoan" type="button" class="btn btn-success mb-3">Apply for
+                                    Loan</button>
+                            </div>
                         </fieldset>
                     </form>
                 </div>

@@ -11,7 +11,7 @@ const app = Vue.createApp({
             cuentas: [],
             prestamos: [],
             cuotas: [],
-            typeLoan: null,
+            typeLoan: [],
             amount: null,
             number: "",
             payment: "",
@@ -51,7 +51,7 @@ const app = Vue.createApp({
                 .then((willDelete) => {
                     if (willDelete) {
                         axios.post('/api/clients/current/loans', {
-                                id: this.typeLoan,
+                                id: this.typeLoan.id,
                                 amount: this.amount,
                                 payments: this.payment,
                                 number: this.number,
@@ -66,11 +66,13 @@ const app = Vue.createApp({
                                     .then(res => { location.reload() })
                             })
                             .catch(err => {
-                                swal({
-                                    title: "Alert",
-                                    text: "Check the data entered",
-                                    icon: "warning",
-                                })
+                                if (err.response.data.error == "maximo") {
+                                    swal({
+                                        title: "Alert",
+                                        text: "Amount to request exceeds the maximum",
+                                        icon: "warning",
+                                    })
+                                }
                             })
                     } else {
                         swal("for question contac us");
@@ -80,8 +82,7 @@ const app = Vue.createApp({
     },
     computed: {
         payments() {
-
-            let payList = this.prestamos.filter(prestamo => prestamo.id == this.typeLoan)
+            let payList = this.prestamos.filter(prestamo => prestamo.id == this.typeLoan.id)
             let list = [];
             payList.forEach(element => {
                 list.push(element.payments)
@@ -95,16 +96,13 @@ const app = Vue.createApp({
                 list.push(element.interest)
             })
             return list;
-            // if (this.typeLoan == 1) {
-            //     return 15.33
-            // }
-            // if (this.typeLoan == 2) {
-            //     return 22
-            // }
-            // if (this.typeLoan == 3) {
-            //     return 33.5
-            // }
+
         },
+        showMaxAmount() {
+            if (this.typeLoan != null) {
+                return this.typeLoan.maxAmount;
+            }
+        }
     },
 })
 app.mount("#app")

@@ -12,11 +12,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.security.Key;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -49,9 +52,15 @@ public class LoanController {
         return loanRepository.findAll().stream().map(loan -> new LoanDTO(loan)).collect(Collectors.toList());
     }
 
+    private Map<String, Object> makeMap(Object value){
+        Map<String, Object> map = new HashMap<>();
+        map.put("error", value);
+        return  map;
+    }
+
     @Transactional
     @PostMapping("/clients/current/loans")
-    public ResponseEntity<Object> requestLoan(@RequestBody LoanApplicationDTO loanApplicationDTO, Authentication authentication){
+    public ResponseEntity<?> requestLoan(@RequestBody LoanApplicationDTO loanApplicationDTO, Authentication authentication){
         Client client = clientRepository.findByEmail(authentication.getName());
         Loan loan = loanRepository.findById(loanApplicationDTO.getId()).get();
 
@@ -65,13 +74,13 @@ public class LoanController {
             return new ResponseEntity<>("no exists", HttpStatus.FORBIDDEN);
         }
         if ( loan.getMaxAmount() < loanApplicationDTO.getAmount()){
-            return new ResponseEntity<>("maximo", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(makeMap("maximo"), HttpStatus.FORBIDDEN);
         }
         if (!loan.getPayments().contains(loanApplicationDTO.getPayments())){
             return new ResponseEntity<>("payment not available", HttpStatus.FORBIDDEN);
         }
         else{
-            Double interest = (loanRepository.findById(loanApplicationDTO.getId()).get().getInterest() / 100 ) +1;
+            double interest = (loanRepository.findById(loanApplicationDTO.getId()).get().getInterest() / 100 ) +1;
 
             double balance = accountRepository.findByNumber(loanApplicationDTO.getNumber()).getBalance() + loanApplicationDTO.getAmount() * interest;
             accountRepository.findByNumber(loanApplicationDTO.getNumber()).setBalance(balance);

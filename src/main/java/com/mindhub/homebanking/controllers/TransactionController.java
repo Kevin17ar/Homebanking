@@ -39,7 +39,7 @@ public class TransactionController {
 
     @Transactional
     @PostMapping("/clients/current/transactions")
-    public ResponseEntity<Object> transfer(@RequestParam double amount, @RequestParam String description, @RequestParam String numberOrigin, @RequestParam String numberDestiny, Authentication authentication){
+    public ResponseEntity<?> transfer(@RequestParam double amount, @RequestParam String description, @RequestParam String numberOrigin, @RequestParam String numberDestiny, Authentication authentication){
 
         Client client = clientRepository.findByEmail(authentication.getName());
 
@@ -56,7 +56,7 @@ public class TransactionController {
             return  new ResponseEntity<>("search account origin",HttpStatus.FORBIDDEN);
         }
         if (accountRepository.findByNumber(numberOrigin).getBalance() < amount ){
-            return new ResponseEntity<>("balance",HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("amount not allowed",HttpStatus.FORBIDDEN);
         }
         else {
             double balanceD = accountRepository.findByNumber(numberOrigin).getBalance() - amount;
