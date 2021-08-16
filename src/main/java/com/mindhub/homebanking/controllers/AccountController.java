@@ -34,12 +34,12 @@ public class AccountController {
 
     @GetMapping("/accounts")
     public List<AccountDTO> getAccounts(){
-        return this.accountRepository.findAll().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
+        return this.accountRepository.findAll().stream().map(AccountDTO::new).collect(Collectors.toList());
     }
 
     @GetMapping("/accounts/{id}")
     public AccountDTO getAccountById(@PathVariable Long id){
-        return this.accountRepository.findById(id).map(account -> new AccountDTO(account)).orElse(null);
+        return this.accountRepository.findById(id).map(AccountDTO::new).orElse(null);
     }
 
     public int getRandomNumber(int min, int max){
@@ -50,7 +50,7 @@ public class AccountController {
     public ResponseEntity<Object> createAccount(@RequestParam String accountType ,Authentication authentication){
         Client clientAuth= clientRepository.findByEmail(authentication.getName());
 
-        if (clientAuth.getAccounts().stream().filter(account -> account.isActive()).toArray().length >= 3){
+        if (clientAuth.getAccounts().stream().filter(Account::isActive).toArray().length >= 3){
             return new ResponseEntity<>("Max accounts",HttpStatus.FORBIDDEN);
         }
         else {

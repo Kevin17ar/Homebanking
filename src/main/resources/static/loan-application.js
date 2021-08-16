@@ -63,7 +63,7 @@ const app = Vue.createApp({
                                         icon: "success",
                                         button: "OK",
                                     })
-                                    .then(res => { location.reload() })
+                                    .then(res => { location.href = "/accounts.html" })
                             })
                             .catch(err => {
                                 if (err.response.data.error == "maximo") {
@@ -90,7 +90,7 @@ const app = Vue.createApp({
             return list;
         },
         interest() {
-            let payList = this.prestamos.filter(prestamo => prestamo.id == this.typeLoan)
+            let payList = this.prestamos.filter(prestamo => prestamo.id == this.typeLoan.id)
             let list = []
             payList.forEach(element => {
                 list.push(element.interest)

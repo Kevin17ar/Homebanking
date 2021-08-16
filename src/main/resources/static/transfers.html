@@ -72,7 +72,7 @@
             </nav>
             <!-- <div class="d-none d-sm-none d-md-block">Este texto solo visible para escritorio</div>
             <div class="d-block d-sm-block d-md-none">Este texto solo visible para smartphone</div> -->
-            <main class="ps-5 pt-4">
+            <main class="d-flex justify-content-center ps-5 pt-4">
                 <form class="w-75">
                     <fieldset>
                         <legend>Transfers</legend>
@@ -81,17 +81,14 @@
                             <label class="form-check-label" for="form11Example4" checked>third party accounts</label>
                         </div>
                         <div class="mb-3">
-                            <label for="Select2" class="form-label">Number of Accout // Available Balance</label>
-                            <select v-model="accountOrigin" id="Select2" class="form-select" placeholder="Type Card" required>
-                                <option v-for="cuenta in cuentas" :value="cuenta.number">{{cuenta.number}} // $ {{cuenta.balance}}</option>
-                            </select>
+                            <h4>{{accountOrigin}}</h4>
                         </div>
-
                         <h5>Transfers to:</h5>
                         <div v-if="!showButton" class="mb-3">
                             <label for="Select" class="form-label">Number of Accout // Available Balance</label>
                             <select v-model="accountDestiny" id="Select" class="form-select" required>
-                                <option v-for="cuenta in cuentas" :value="cuenta.number">{{cuenta.number}} // ${{cuenta.balance}}</option>
+                                <option v-for="cuenta in cuentas" :value="cuenta.number">{{cuenta.number}} //
+                                    ${{cuenta.balance}}</option>
                             </select>
                         </div>
 
@@ -108,8 +105,13 @@
                             <label for="amount" class="form-label me-3">Amount $</label>
                             <input v-model="amount" type="number" onkeypress="return onlyNumber(event)" onpaste="return false" min="0" name="amount" id="amount" placeholder="ejample : 1000.25" required>
                         </div>
-                        <button v-if="!showButton" @click="transfer" type="button" class="btn btn-success mb-3">Transfers</button>
-                        <button v-else @click="transferOther" type="button" class="btn btn-info mb-3">Transfers</button>
+                        <div v-if="amount > maxAmount" class="alert alert-danger" role="alert">
+                            Amount exceeds the limit
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button v-if="!showButton" @click="transfer" type="button" class="btn btn-success mb-3">Transfers</button>
+                            <button v-else @click="transferOther" type="button" class="btn btn-info mb-3">Transfers</button>
+                        </div>
                     </fieldset>
                 </form>
             </main>

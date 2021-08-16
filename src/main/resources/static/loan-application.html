@@ -100,6 +100,14 @@
                                 <label for="amount" class="form-label me-3">Amount $</label>
                                 <input v-model="amount" type="number" onkeypress="return onlyNumber(event)" onpaste="return false" min="0" name="amount" id="amount" placeholder="ejample : 1000.25" required>
                             </div>
+                            <div v-if="amount > showMaxAmount" class="alert alert-danger d-flex align-items-center" role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                                    <use xlink:href="#exclamation-triangle-fill" />
+                                </svg>
+                                <div>
+                                    The requested amount exceeds the loan limit
+                                </div>
+                            </div>
                             <table class="table">
                                 <thead>
                                     <tr>
