@@ -13,26 +13,23 @@ public final class CardUtils {
     }
 
     public static String getNumber() {
-        String number = getRandomNumber(4000,9999) + "-" + getRandomNumber(3000,9999) +"-"+ getRandomNumber(2000,9999) +"-"+ getRandomNumber(1000,9999);
-        return number;
+        return getRandomNumber(4000,9999) + "-" + getRandomNumber(3000,9999) +"-"+ getRandomNumber(2000,9999) +"-"+ getRandomNumber(1000,9999);
     }
 
     public static String getDateFormat(){
         LocalDateTime today= LocalDateTime.now();
 
         DateTimeFormatter todayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDate = today.format(todayFormat);
 
-        return formattedDate;
+        return today.format(todayFormat);
     }
 
     public static String getDateFormatCard(){
         LocalDate todayCard= LocalDate.now();
 
         DateTimeFormatter todayFormatCard = DateTimeFormatter.ofPattern("MM-yy");
-        String formattedDateCard = todayCard.format(todayFormatCard);
 
-        return formattedDateCard;
+        return todayCard.format(todayFormatCard);
     }
 
 
