@@ -57,6 +57,5 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
             session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         }
     }
-
-
+    
 }

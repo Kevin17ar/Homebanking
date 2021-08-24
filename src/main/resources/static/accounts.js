@@ -67,7 +67,7 @@ const app = Vue.createApp({
                     }
                 });
         },
-        deleteAccount() {
+        deleteAccount(id) {
             swal({
                     title: "Are you sure?",
                     icon: "warning",
@@ -76,7 +76,7 @@ const app = Vue.createApp({
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        axios.post('/api/clients/current/account/delete', "id=" + this.accountSelect)
+                        axios.post('/api/clients/current/account/delete', "id=" + id)
                             .then(response => {
                                 swal({
                                         title: "Congratulations",

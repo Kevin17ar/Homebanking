@@ -59,7 +59,7 @@
                             </button>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                                 <div class="offcanvas-header">
-                                    <h5 id="offcanvasRightLabel">My homebanking</h5>
+                                    <h5 id="offcanvasRightLabel">{{cliente.firstName}} {{cliente.lastName}}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
@@ -72,13 +72,22 @@
             </nav>
             <!-- <div class="d-none d-sm-none d-md-block">Este texto solo visible para escritorio</div>
             <div class="d-block d-sm-block d-md-none">Este texto solo visible para smartphone</div> -->
-            <main class="ps-5 pt-5 mt-5 pe-4">
+            <main class=" pt-5 mt-5">
                 <!-- Accounts section -->
                 <h2 class="text-info text-center">Accounts</h2>
                 <div class="d-flex justify-content-center">
-                    <button v-if="cuentas.length < 3" type="button" class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#exampleModalType">Create Account</button>
-                    <button v-else type="button" class="btn btn-danger mb-4 me-4" data-bs-toggle="modal" data-bs-target="#exampleModalType">Create Account</button>
-                    <button type="button" class="btn btn-danger mb-4 ms-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete Account</button>
+                    <button v-if="cuentas.length < 3" type="button" class="button" data-bs-toggle="modal" data-bs-target="#exampleModalType">
+                        <span class="button__text">Add</span>
+                        <span class="button__icon">
+                            <ion-icon name="add-circle-outline"></ion-icon>
+                        </span>
+                    </button>
+                    <button v-else type="button" class="button" data-bs-toggle="modal" data-bs-target="#exampleModalType" disabled>
+                        <span class="button__text">Add</span>
+                        <span class="button__icon">
+                            <ion-icon name="cloud-download-outline"></ion-icon>
+                        </span>
+                    </button>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModalType" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -102,29 +111,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Delete Account</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <label for="Select" class="form-label">Selec Account</label>
-                                <Select v-model="accountSelect" id="Select" class="form-select" required>
-                                    <option v-for="cuenta in cuentas" :value="cuenta.id">{{cuenta.number}}</option>
-                                </Select>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button @click="deleteAccount" type="button" class="btn btn-danger">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <section class="d-flex justify-content-center flex-wrap">
-                    <div v-for="(dato, index) in cuentas" class="card text-dark bg-light mb-3 me-5 shadow-lg p-3 mb-5 rounded" style="max-width: 19rem;">
+                    <div v-for="(dato, index) in cuentas" class="card text-dark bg-light shadow-lg me-3 mb-5 p-3 rounded" style="width: 13rem;">
                         <div class="card-header">{{dato.accountType}}</div>
                         <div class="card-body">
                             <p class="card-title">{{dato.number}}</p>
@@ -137,6 +125,9 @@
                                 <li><a class="dropdown-item" :href="'/account.html?id='+ dato.id">See movements</a>
                                 </li>
                                 <li><a class="dropdown-item" :href="'/transfers.html?id='+ dato.id">Transfers</a>
+                                </li>
+                                <li>
+                                    <button @click="deleteAccount(dato.id)" type="button" class="btn btn-danger">Delete Account</button>
                                 </li>
                             </ul>
                         </div>
@@ -241,6 +232,7 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://unpkg.com/vue@next"></script>

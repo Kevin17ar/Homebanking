@@ -58,7 +58,7 @@
                             </button>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                                 <div class="offcanvas-header">
-                                    <h5 id="offcanvasRightLabel">My homebanking</h5>
+                                    <h5 id="offcanvasRightLabel">{{cliente.firstName}} {{cliente.lastName}}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
@@ -101,9 +101,6 @@
                                 <input v-model="amount" type="number" onkeypress="return onlyNumber(event)" onpaste="return false" min="0" name="amount" id="amount" placeholder="ejample : 1000.25" required>
                             </div>
                             <div v-if="amount > showMaxAmount" class="alert alert-danger d-flex align-items-center" role="alert">
-                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
-                                    <use xlink:href="#exclamation-triangle-fill" />
-                                </svg>
                                 <div>
                                     The requested amount exceeds the loan limit
                                 </div>

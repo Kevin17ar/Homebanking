@@ -59,7 +59,7 @@
                             </button>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                                 <div class="offcanvas-header">
-                                    <h5 id="offcanvasRightLabel">My homebanking</h5>
+                                    <h5 id="offcanvasRightLabel">{{cliente.firstName}} {{cliente.lastName}}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
@@ -72,47 +72,42 @@
             </nav>
             <!-- <div class="d-none d-sm-none d-md-block">Este texto solo visible para escritorio</div>
             <div class="d-block d-sm-block d-md-none">Este texto solo visible para smartphone</div> -->
-            <main class="d-flex justify-content-center ps-5 pt-4">
-                <form class="w-75">
-                    <fieldset>
-                        <legend>Transfers</legend>
-                        <div class="form-check form-switch">
-                            <input v-model="otherAccount" class="form-check-input" type="checkbox" id="form11Example4" />
-                            <label class="form-check-label" for="form11Example4" checked>third party accounts</label>
-                        </div>
-                        <div class="mb-3">
-                            <h4>{{accountOrigin}}</h4>
-                        </div>
-                        <h5>Transfers to:</h5>
-                        <div v-if="!showButton" class="mb-3">
-                            <label for="Select" class="form-label">Number of Accout // Available Balance</label>
-                            <select v-model="accountDestiny" id="Select" class="form-select" required>
-                                <option v-for="cuenta in cuentas" :value="cuenta.number">{{cuenta.number}} //
-                                    ${{cuenta.balance}}</option>
-                            </select>
-                        </div>
+            <main class="d-flex justify-content-center pt-4">
+                <form>
+                    <h3 class="text-center">Transfer of {{accountOrigin}}</h3>
+                    <div class="form-check form-switch">
+                        <input v-model="otherAccount" class="form-check-input" type="checkbox" id="form11Example4" />
+                        <label class="form-check-label" for="form11Example4" checked>third party accounts</label>
+                    </div>
+                    <h5>Transfers to:</h5>
+                    <div v-if="!showButton" class="mb-3">
+                        <label for="Select" class="form-label">Number of Accout // Available Balance</label>
+                        <select v-model="accountDestiny" id="Select" class="form-select" required>
+                            <option v-for="cuenta in cuentas" :value="cuenta.number">{{cuenta.number}} //
+                                ${{cuenta.balance}}</option>
+                        </select>
+                    </div>
+                    <div v-else class="mb-3">
+                        <label for="number" class="form-label">third party account number</label>
+                        <input v-model="accountDestinyOther" type="text" name="number" id="number" class="form-control" placeholder="Ejample: VN******" required>
+                    </div>
 
-                        <div v-else class="mb-3">
-                            <label for="number" class="form-label">third party account number</label>
-                            <input v-model="accountDestinyOther" type="text" name="number" id="number" class="form-control" placeholder="Ejample: VN******" required>
-                        </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label me-3">Reason</label>
+                        <input v-model="description" type="text" name="description" id="description" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label me-3">Amount $</label>
+                        <input v-model="amount" type="number" onkeypress="return onlyNumber(event)" onpaste="return false" min="0" name="amount" id="amount" placeholder="ejample : 1000.25" required>
+                    </div>
+                    <div v-if="amount > maxAmount" class="alert alert-danger" role="alert">
+                        Amount exceeds the limit
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button v-if="!showButton" @click="transfer" type="button" class="btn btn-success mb-3">Transfers</button>
+                        <button v-else @click="transferOther" type="button" class="btn btn-info mb-3">Transfers</button>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="description" class="form-label me-3">Reason</label>
-                            <input v-model="description" type="text" name="description" id="description" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="amount" class="form-label me-3">Amount $</label>
-                            <input v-model="amount" type="number" onkeypress="return onlyNumber(event)" onpaste="return false" min="0" name="amount" id="amount" placeholder="ejample : 1000.25" required>
-                        </div>
-                        <div v-if="amount > maxAmount" class="alert alert-danger" role="alert">
-                            Amount exceeds the limit
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button v-if="!showButton" @click="transfer" type="button" class="btn btn-success mb-3">Transfers</button>
-                            <button v-else @click="transferOther" type="button" class="btn btn-info mb-3">Transfers</button>
-                        </div>
-                    </fieldset>
                 </form>
             </main>
 
@@ -184,6 +179,7 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
