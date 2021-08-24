@@ -54,8 +54,11 @@
                     </li>
                     <li class="d-none d-md-flex">
                         <div class="dropdown nav-item">
-                            <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                {{cliente.firstName}} {{cliente.lastName}}
+                            <button type="button" class="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="background-color: rgb(7,33,70);">
+                                <span class="button__text">{{cliente.firstName}}</span>
+                                <span class="button__icon">
+                                    <ion-icon name="person-outline"></ion-icon>
+                                </span>
                             </button>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                                 <div class="offcanvas-header">
@@ -75,7 +78,7 @@
             <main class=" pt-5 mt-5">
                 <!-- Accounts section -->
                 <h2 class="text-info text-center">Accounts</h2>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center mb-4">
                     <button v-if="cuentas.length < 3" type="button" class="button" data-bs-toggle="modal" data-bs-target="#exampleModalType">
                         <span class="button__text">Add</span>
                         <span class="button__icon">
@@ -127,7 +130,8 @@
                                 <li><a class="dropdown-item" :href="'/transfers.html?id='+ dato.id">Transfers</a>
                                 </li>
                                 <li>
-                                    <button @click="deleteAccount(dato.id)" type="button" class="btn btn-danger">Delete Account</button>
+                                    <button @click="deleteAccount(dato.id)" type="button" class="btn btn-danger">Delete
+                                        Account</button>
                                 </li>
                             </ul>
                         </div>
@@ -136,7 +140,14 @@
 
                 <h2 class="text-info text-center">Loans</h2>
                 <div class="d-flex justify-content-center mb-4">
-                    <a class="btn btn-success" href="/loan-application.html">Apply for a loan</a>
+                    <a href="/loan-application.html">
+                        <button type="button" class="button">
+                            <span class="button__text">Add</span>
+                            <span class="button__icon">
+                                <ion-icon name="add-circle-outline"></ion-icon>
+                            </span>
+                        </button>
+                    </a>
                 </div>
                 <section class="d-flex flex-column align-items-center">
 
