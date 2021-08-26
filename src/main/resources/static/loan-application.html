@@ -49,7 +49,12 @@
                     <li><a href="card.html">Cards</a></li>
                     <li><a href="accounts.html">Loan</a></li>
                     <li class="d-md-none">
-                        <button @click="signOut" type="button" class="btn btn-danger">SIGN OUT</button>
+                        <button @click="signOut" type="button" class="button" style="background-color: rgb(186,24,56);">
+                            <span class="button__text">SIGN OUT</span>
+                            <span class="button__icon">
+                                <ion-icon name="power-outline"></ion-icon>
+                            </span>
+                        </button>
                     </li>
                     <li class="d-none d-md-flex">
                         <div class="dropdown nav-item">
@@ -62,7 +67,12 @@
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
-                                    <button @click="signOut" type="button" class="btn btn-danger">SIGN OUT</button>
+                                    <button @click="signOut" type="button" class="button" style="background-color: rgb(186,24,56);">
+                                        <span class="button__text">SIGN OUT</span>
+                                        <span class="button__icon">
+                                            <ion-icon name="power-outline"></ion-icon>
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -133,8 +143,12 @@
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-center">
-                                <button @click="createLoan" type="button" class="btn btn-success mb-3">Apply for
-                                    Loan</button>
+                                <button @click="createLoan" type="button" class="button">
+                                    <span class="button__text">Apply Loan</span>
+                                    <span class="button__icon">
+                                        <ion-icon name="cash-outline"></ion-icon>
+                                    </span>
+                                </button>
                             </div>
                         </fieldset>
                     </form>
@@ -209,6 +223,7 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://unpkg.com/vue@next"></script>

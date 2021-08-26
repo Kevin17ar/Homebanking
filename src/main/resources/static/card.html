@@ -45,7 +45,11 @@
                     <li><a href="card.html">Cards</a></li>
                     <li><a href="accounts.html">Loan</a></li>
                     <li class="d-md-none">
-                        <button @click="signOut" type="button" class="btn btn-danger">SIGN OUT</button>
+                        <button @click="signOut" type="button" class="button" style="background-color: rgb(186,24,56);">
+                            <span class="button__text">SIGN OUT</span>
+                            <span class="button__icon">
+                                <ion-icon name="power-outline"></ion-icon>                                        </span>
+                        </button>
                     </li>
                     <li class="d-none d-md-flex">
                         <div class="dropdown nav-item">
@@ -58,7 +62,11 @@
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
-                                    <button @click="signOut" type="button" class="btn btn-danger">SIGN OUT</button>
+                                    <button @click="signOut" type="button" class="button" style="background-color: rgb(186,24,56);">
+                                        <span class="button__text">SIGN OUT</span>
+                                        <span class="button__icon">
+                                            <ion-icon name="power-outline"></ion-icon>                                        </span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -67,11 +75,29 @@
             </nav>
             <main class="d-flex flex-column align-items-center pt-5 mt-5">
                 <div class="d-flex justify-content-center">
-                    <a v-if="tarjetas.length < 6" type="button" class="btn btn-success mb-4 me-3" href="create-cards.html">Request Card</a>
-                    <a v-else @click="cardMax" type="button" class="btn btn-danger mb-4 me-3" href="#" disabled>Request
-                        Card</a>
+                    <a v-if="tarjetas.length < 6" href="create-cards.html">
+                        <button type="button" class="button">
+                            <span class="button__text">Card</span>
+                            <span class="button__icon">
+                                <ion-icon name="card-outline"></ion-icon>
+                            </span>
+                        </button>
+                    </a>
+                    <a v-else @click="cardMax" href="#" disabled>
+                        <button type="button" class="button">
+                            <span class="button__text">Card</span>
+                            <span class="button__icon">
+                                <ion-icon name="card-outline"></ion-icon>
+                            </span>
+                        </button>
+                    </a>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-danger mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete Card</button>
+                    <button type="button" class="button ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: rgb(189, 24, 57);">
+                        <span class="button__text">Delete</span>
+                        <span class="button__icon">
+                            <ion-icon name="trash-outline"></ion-icon>                        
+                        </span>
+                    </button>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -227,6 +253,7 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://unpkg.com/vue@next"></script>

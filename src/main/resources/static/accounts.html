@@ -50,7 +50,12 @@
                     <li><a href="card.html">Cards</a></li>
                     <li><a href="accounts.html">Loan</a></li>
                     <li class="d-md-none">
-                        <button @click="signOut" type="button" class="btn btn-danger">SIGN OUT</button>
+                        <button @click="signOut" type="button" class="button" style="background-color: rgb(186,24,56);">
+                            <span class="button__text">OUT</span>
+                            <span class="button__icon">
+                                <ion-icon name="power-outline"></ion-icon>
+                            </span>
+                        </button>
                     </li>
                     <li class="d-none d-md-flex">
                         <div class="dropdown nav-item">
@@ -66,7 +71,12 @@
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
-                                    <button @click="signOut" type="button" class="btn btn-danger">SIGN OUT</button>
+                                    <button @click="signOut" type="button" class="button" style="background-color: rgb(186,24,56);">
+                                        <span class="button__text">OUT</span>
+                                        <span class="button__icon">
+                                            <ion-icon name="power-outline"></ion-icon>
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -108,8 +118,8 @@
                                 </Select>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button @click="createAccount" type="button" class="btn btn-danger">Create</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                <button @click="createAccount" type="button" class="btn btn-success">Create</button>
                             </div>
                         </div>
                     </div>
@@ -121,7 +131,7 @@
                             <p class="card-title">{{dato.number}}</p>
                             <h4 class="card-title">${{dato.balance.toFixed(2)}}</h4>
                             <h4 class="card-title fs-6">{{dato.creationDate.slice(0,10)}}</h4>
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Going to:
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -130,7 +140,7 @@
                                 <li><a class="dropdown-item" :href="'/transfers.html?id='+ dato.id">Transfers</a>
                                 </li>
                                 <li>
-                                    <button @click="deleteAccount(dato.id)" type="button" class="btn btn-danger">Delete
+                                    <button @click="deleteAccount(dato.id)" type="button" class="dropdown-item">Delete
                                         Account</button>
                                 </li>
                             </ul>
