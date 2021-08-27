@@ -109,9 +109,9 @@ public class HomebankingApplication {
 			String formattedDateCard = todayCard.format(todayFormatCard);
 			String dueDate = todayCard.plusYears(5).format(todayFormatCard);
 
-			Card card1 = new Card(CardType.DEBIT, CardColor.GOLD, "2345-2948-7465-7837", 233, formattedDateCard, dueDate, client1);
-			Card card2 = new Card(CardType.CREDIT, CardColor.TITANIUM, "4545-2948-5945-7837", 077, formattedDateCard, dueDate, client1);
-			Card card3 = new Card(CardType.CREDIT, CardColor.SILVER, "4545-2948-2438-9883", 234, formattedDateCard, dueDate, client2);
+			Card card1 = new Card(CardType.DEBIT, CardColor.GOLD, "2345294874657837", 233, formattedDateCard, dueDate, client1);
+			Card card2 = new Card(CardType.CREDIT, CardColor.TITANIUM, "4545294859457837", 777, formattedDateCard, dueDate, client1);
+			Card card3 = new Card(CardType.CREDIT, CardColor.SILVER, "4545294824389883", 234, formattedDateCard, dueDate, client2);
 
 			cardRepository.save(card1);
 			cardRepository.save(card2);

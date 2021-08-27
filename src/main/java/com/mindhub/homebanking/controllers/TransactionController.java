@@ -78,10 +78,10 @@ public class TransactionController {
     @Transactional
     @PostMapping("/clients/pay")
     public ResponseEntity<Object> payCard(@RequestBody PayCardDTO payCardDTO){
-        Card card = cardRepository.findByNumber(payCardDTO.getNumber());
+        Card card = cardRepository.findByNumber(payCardDTO.getCardNumber());
         Account account = card.getClient().getAccounts().stream().findFirst().orElse(null);
 
-        if (payCardDTO.getNumber().isEmpty() || payCardDTO.getCvv() == 0 || payCardDTO.getAmount() == 0 || payCardDTO.getDescription().isEmpty()){
+        if (payCardDTO.getCardNumber().isEmpty() || payCardDTO.getCvv() == 0 || payCardDTO.getAmount() == 0 || payCardDTO.getDescription().isEmpty()){
             return new ResponseEntity<>("empty", HttpStatus.BAD_REQUEST);
         }
         if (account == null){
