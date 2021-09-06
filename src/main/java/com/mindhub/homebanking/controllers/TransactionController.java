@@ -20,9 +20,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class TransactionController {
 
     @Autowired
@@ -77,17 +78,21 @@ public class TransactionController {
 
     @Transactional
     @PostMapping("/clients/pay")
-    public ResponseEntity<Object> payCard(@RequestBody PayCardDTO payCardDTO){
-        Card card = cardRepository.findByNumber(payCardDTO.getCardNumber());
-        Account account = card.getClient().getAccounts().stream().findFirst().orElse(null);
-
-        if (payCardDTO.getCardNumber().isEmpty() || payCardDTO.getCvv() == 0 || payCardDTO.getAmount() == 0 || payCardDTO.getDescription().isEmpty()){
+    public ResponseEntity<?> payCard(@RequestBody PayCardDTO payCardDTO){
+        if (payCardDTO.getFirstName().isEmpty() || payCardDTO.getLastName().isEmpty() || payCardDTO.getCardNumber().isEmpty() || payCardDTO.getCvv() == 0 || payCardDTO.getAmount() == 0 || payCardDTO.getDescription().isEmpty()){
             return new ResponseEntity<>("empty", HttpStatus.BAD_REQUEST);
         }
-        if (account == null){
+
+        Card card = cardRepository.findByNumber(payCardDTO.getCardNumber());
+
+        if (card == null){
             return new ResponseEntity<>("card no exist", HttpStatus.FORBIDDEN);
         }
-        if(!account.getAccountType().equals("Caja de Ahorro")){
+        Account account = card.getClient().getAccounts().stream().findFirst().orElse(null);
+        if (account == null){
+            return new ResponseEntity<>("account no exist", HttpStatus.FORBIDDEN);
+        }
+;       if(!account.getAccountType().equals("Caja de Ahorro")){
             return new ResponseEntity<>("is no account type ahorro", HttpStatus.FORBIDDEN);
         }
         if (payCardDTO.getCvv() != card.getCvv()){

@@ -1,6 +1,8 @@
 const app = Vue.createApp({
     data() {
         return {
+            firstName: "",
+            lastName: "",
             number: "",
             cvv: null,
             amount: null,
@@ -11,21 +13,23 @@ const app = Vue.createApp({
     methods: {
         buy() {
             axios.post("/api/clients/pay", {
-                    number: this.number,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    cardNumber: this.number,
                     cvv: this.cvv,
                     amount: this.amount,
                     description: this.description,
                 })
                 .then(res => {
                     swal({
-                        title: "Congratulations",
-                        text: "Buy Completed",
-                        icon: "success",
-                        button: "OK",
-                    });
-                })
-                .then(res => {
-                    location.reload()
+                            title: "Congratulations",
+                            text: "Buy Completed",
+                            icon: "success",
+                            button: "OK",
+                        })
+                        .then(res => {
+                            location.reload()
+                        })
                 })
                 .catch(err => {
                     swal({

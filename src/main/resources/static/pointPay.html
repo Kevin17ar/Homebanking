@@ -20,17 +20,14 @@
                     <div class="name">
                         <div>
                             <label for="f-name">First</label>
-                            <input type="text" name="f-name">
+                            <input v-model="firstName" type="text" name="f-name">
                         </div>
                         <div>
                             <label for="l-name">Last</label>
-                            <input type="text" name="l-name">
+                            <input v-model="lastName" type="text" name="l-name">
                         </div>
                     </div>
-                    <div class="street">
-                        <label for="name">Street</label>
-                        <input type="text" name="address">
-                    </div>
+
                     <div class="address-info">
                         <div>
                             <label for="city">Description</label>
@@ -39,7 +36,7 @@
 
                         <div>
                             <label for="zip">Amount</label>
-                            <input v-model="amount" type="text" name="zip">
+                            <input v-model="amount" type="number" name="zip">
                         </div>
                     </div>
                     <h1>Payments</h1>
@@ -50,11 +47,11 @@
                     <div class="cc-info">
                         <div>
                             <label for="card-num">Exp</label>
-                            <input type="text" name="expire" placeholder="MM/YY" required>
+                            <input type="number" name="expire" placeholder="MM/YY" required>
                         </div>
                         <div>
                             <label for="card-num">CCV</label>
-                            <input v-model="cvv" type="text" name="security">
+                            <input v-model="cvv" type="number" name="security">
                         </div>
                     </div>
                     <div class="btns">
