@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @RequestMapping("/api")
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin
 public class TransactionController {
 
     @Autowired
