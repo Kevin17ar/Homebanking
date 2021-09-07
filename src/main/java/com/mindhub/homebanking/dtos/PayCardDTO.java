@@ -6,14 +6,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PayCardDTO {
-    private String firstName;
-    private String lastName;
+    private String cardHolder;
     private String cardNumber;
     private int cvv;
     private double amount;
     private String description;
 
-    public PayCardDTO(String cardNumber, int cvv, double amount, String description) {
+    public PayCardDTO(String cardHolder , String cardNumber, int cvv, double amount, String description) {
+        this.cardHolder = cardHolder;
         this.cardNumber = cardNumber;
         this.cvv = cvv;
         this.amount = amount;

@@ -78,7 +78,7 @@ public class TransactionController {
 
     @PostMapping("/clients/pay")
     public ResponseEntity<?> payCard(@RequestBody PayCardDTO payCardDTO){
-        if (payCardDTO.getFirstName().isEmpty() || payCardDTO.getLastName().isEmpty() || payCardDTO.getCardNumber().isEmpty() || payCardDTO.getCvv() == 0 || payCardDTO.getAmount() == 0 || payCardDTO.getDescription().isEmpty()){
+        if (payCardDTO.getCardHolder().isEmpty() || payCardDTO.getCardNumber().isEmpty() || payCardDTO.getCvv() == 0 || payCardDTO.getAmount() == 0 || payCardDTO.getDescription().isEmpty()){
             return new ResponseEntity<>("empty", HttpStatus.BAD_REQUEST);
         }
 
