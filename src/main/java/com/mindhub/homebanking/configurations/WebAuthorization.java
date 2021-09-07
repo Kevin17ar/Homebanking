@@ -26,7 +26,6 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index.html", "/index.js", "/css/**", "/pointPay.html","/payPoint.js", "/img/**").permitAll()
                 .antMatchers("/**").hasAnyAuthority("CLIENT", "ADMIN");
 
-
         http.formLogin()
                 .usernameParameter("email")
                 .passwordParameter("password")

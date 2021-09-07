@@ -10,6 +10,7 @@ import com.mindhub.homebanking.repositories.TransactionRepository;
 import com.mindhub.homebanking.utils.CardUtils;
 import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -38,7 +39,6 @@ public class TransactionController {
     @Autowired
     private CardRepository cardRepository;
 
-    @Transactional
     @PostMapping("/clients/current/transactions")
     public ResponseEntity<?> transfer(@RequestParam double amount, @RequestParam String description, @RequestParam String numberOrigin, @RequestParam String numberDestiny, Authentication authentication){
 
@@ -76,7 +76,6 @@ public class TransactionController {
         }
     }
 
-    @Transactional
     @PostMapping("/clients/pay")
     public ResponseEntity<?> payCard(@RequestBody PayCardDTO payCardDTO){
         if (payCardDTO.getFirstName().isEmpty() || payCardDTO.getLastName().isEmpty() || payCardDTO.getCardNumber().isEmpty() || payCardDTO.getCvv() == 0 || payCardDTO.getAmount() == 0 || payCardDTO.getDescription().isEmpty()){
@@ -123,7 +122,7 @@ public class TransactionController {
 
         List<TransactionDTO>  transactionDTOS2 = account.getTransactions().stream().map(TransactionDTO::new).collect(Collectors.toList());
 
-        List<TransactionDTO>  transactionDTOS1 = transactionDTOS.stream().filter(tr -> transactionDTOS2.contains(tr)).collect(Collectors.toList());
+        List<TransactionDTO>  transactionDTOS1 = transactionDTOS.stream().filter(transactionDTOS2::contains).collect(Collectors.toList());
 
         return new ResponseEntity<>(transactionDTOS1, HttpStatus.OK);
     }
@@ -132,12 +131,17 @@ public class TransactionController {
     public ResponseEntity<?> getTransactionByString(@RequestParam Long id ,@RequestParam String word){
         Account account = accountRepository.findById(id).orElse(null);
 
-        List<TransactionDTO> transactions = transactionRepository.findByDescriptionContaining(word).stream().map(TransactionDTO::new).collect(Collectors.toList());
+        if (account != null){
+            List<TransactionDTO> transactions = transactionRepository.findByDescriptionContaining(word).stream().map(TransactionDTO::new).collect(Collectors.toList());
 
-        List<TransactionDTO> transactionDTOList = account.getTransactions().stream().map(TransactionDTO::new).collect(Collectors.toList());
+            List<TransactionDTO> transactionDTOList = account.getTransactions().stream().map(TransactionDTO::new).collect(Collectors.toList());
 
-        List<TransactionDTO> transactionDTOList1 = transactionDTOList.stream().filter(tr -> transactions.contains(tr)).collect(Collectors.toList());
+            List<TransactionDTO> transactionDTOList1 = transactionDTOList.stream().filter(transactions::contains).collect(Collectors.toList());
 
-        return new ResponseEntity<>(transactionDTOList1, HttpStatus.OK);
+            return new ResponseEntity<>(transactionDTOList1, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
     }
 }
