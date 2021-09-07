@@ -21,10 +21,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-@RestController
 @RequestMapping("/api")
-@CrossOrigin
+@RestController
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class TransactionController {
 
     @Autowired
@@ -47,7 +46,7 @@ public class TransactionController {
         if (description.isEmpty() || numberOrigin.isEmpty() || numberDestiny.isEmpty() || amount < 0){
             return new ResponseEntity<>("empty",HttpStatus.FORBIDDEN);
         }
-        if (numberDestiny == numberOrigin){
+        if (numberDestiny.equals(numberOrigin)){
             return new ResponseEntity<>("number is equal", HttpStatus.FORBIDDEN);
         }
         if (accountRepository.findByNumber(numberOrigin) == null || accountRepository.findByNumber(numberDestiny) == null){

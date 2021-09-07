@@ -36,7 +36,7 @@ public class HomebankingApplication {
 
 			DateTimeFormatter todayFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-			String formateyes= yesterday.format(todayFormat);
+			String formatEyes= yesterday.format(todayFormat);
 			String formattedDate = today.format(todayFormat);
 
 			LocalDateTime tomorrow= today.plusDays(1);
