@@ -7,6 +7,7 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,5 +67,6 @@ public class RepositoriesTest {
         List<Card> cards =cardRepository.findAll();
         assertThat(cards, is(not(empty())));
     }
+
 
 }
