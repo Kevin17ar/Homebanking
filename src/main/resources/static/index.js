@@ -1,12 +1,11 @@
 const app = Vue.createApp({
     data() {
         return {
-            email: [],
+            email: "",
             password: [],
 
-            firstNameToReg: [],
-            lastNameToReg: [],
-            emailToReg: [],
+            firstNameToReg: "",
+            lastNameToReg: "",
             passwordToReg: [],
             repeatPassword: [],
         }
@@ -18,7 +17,7 @@ const app = Vue.createApp({
         signIn() {
             axios.post('/api/login', "email=" + this.email + "&password=" + this.password, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                 .then(response => {
-                    if (this.email == "admin") {
+                    if (this.email.includes('@admin')) {
                         location.href = "/manager.html?"
                     } else {
                         location.href = "/accounts.html?"
@@ -33,8 +32,8 @@ const app = Vue.createApp({
                 })
         },
         register() {
-            if (this.passwordToReg === this.repeatPassword) {
-                axios.post('/api/clients', "firstName=" + this.firstNameToReg + "&lastName=" + this.lastNameToReg + "&email=" + this.emailToReg + "&password=" + this.passwordToReg, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
+            if (this.password === this.repeatPassword) {
+                axios.post('/api/clients', "firstName=" + this.firstNameToReg + "&lastName=" + this.lastNameToReg + "&email=" + this.email + "&password=" + this.password, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                     .then(response => {
                         swal({
                                 title: "Congratulations",
@@ -43,7 +42,7 @@ const app = Vue.createApp({
                                 button: "OK",
                             })
                             .then(res => {
-                                location.href = "/accounts.html?"
+                                this.signIn();
                             })
                     })
             } else {
